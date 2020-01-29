@@ -6,14 +6,15 @@ namespace GC_Lab_3._2
 {
     class Program
     {
+
+        const int MENU_AND_CART_PADDING = 6;
         static void Main(string[] args)
         {
             Dictionary<string, double> menuItems = PopulateMenuItems();
 
-            Console.WriteLine("=============================================");
-            Console.WriteLine("== Welcome to Nic's Happy Food and Stuff!! ==");
-            Console.WriteLine("=============================================");
-            Console.WriteLine();
+            Console.WriteLine("#############################################");
+            Console.WriteLine("## Welcome to Nic's Happy Food and Stuff!! ##");
+            Console.WriteLine("#############################################");
 
             PrintMenuItems(menuItems);
 
@@ -32,7 +33,10 @@ namespace GC_Lab_3._2
         private static double GetAvePrice(List<double> itemPriceCart)
         {
             var total = 0.0;
-            
+            if (itemPriceCart.Count == 0)
+            {
+                return 0.0;
+            }
             foreach(var itemPrice in itemPriceCart)
             {
 
@@ -46,12 +50,13 @@ namespace GC_Lab_3._2
             out ArrayList itemCart, out List<double> itemPriceCart)
         {
             PrintHelpMenu();
-            itemCart = new List<string>();
+            itemCart = new ArrayList();
             itemPriceCart = new List<double>();
             var done = false;
             do
             {
-                Console.Write("\nWhat item would you like to add to your cart: ");
+                Console.WriteLine();
+                Console.Write("What item would you like to add to your cart: ");
                 string userInput = Console.ReadLine().ToLower();
 
                 if (userInput.Contains("done"))
@@ -74,6 +79,7 @@ namespace GC_Lab_3._2
                 {
                     itemCart.Add(item);
                     itemPriceCart.Add(price);
+                    Console.WriteLine($"added {item} to cart for ${price}");
                 }
                 else
                 {
@@ -91,19 +97,19 @@ namespace GC_Lab_3._2
                 throw new ArgumentException("ERROR: item cart and item price cart are out of sync");
             }
             Console.WriteLine();
-            Console.WriteLine("------------------------------");
-            Console.WriteLine($"--{"Cart Items",15} | {"Price",-7} --");
-            Console.WriteLine("------------------------------");
+            Console.WriteLine($"{"",MENU_AND_CART_PADDING}------------------------------");
+            Console.WriteLine($"{"",MENU_AND_CART_PADDING}--{"Cart Items",15} | {"Price",-8}--");
+            Console.WriteLine($"{"",MENU_AND_CART_PADDING}------------------------------");
             for (var i = 0; i < itemCart.Count; i++)
             {
-                Console.WriteLine($"--{itemCart[i],15} | ${itemPriceCart[i],-7}--");
-                Console.WriteLine("------------------------------");
+                Console.WriteLine($"{"",MENU_AND_CART_PADDING}--{itemCart[i],15} | ${itemPriceCart[i],-7}--");
+                Console.WriteLine($"{"",MENU_AND_CART_PADDING}------------------------------");
             }
 
             if (itemCart.Count == 0)
             {
-                Console.WriteLine("--      Cart is empty       --");
-                Console.WriteLine("------------------------------");
+                Console.WriteLine($"{"",MENU_AND_CART_PADDING}--      Cart is empty       --");
+                Console.WriteLine($"{"",MENU_AND_CART_PADDING}------------------------------");
             }
             Console.WriteLine();
         }
@@ -128,6 +134,7 @@ namespace GC_Lab_3._2
 
         static void PrintHelpMenu()
         {
+            Console.WriteLine();
             Console.WriteLine("When choosing an item off the list type the exact name.");
             Console.WriteLine("To complete your order type \'done\'");
             Console.WriteLine("To see the menu items list again type \'menu\'");
@@ -152,14 +159,19 @@ namespace GC_Lab_3._2
 
         static void PrintMenuItems(Dictionary<string, double> menuItems)
         {
-            
-            Console.WriteLine("------------------------------");
-            Console.WriteLine($"--{"Menu Items",15} | {"Price",-7} --");
-            Console.WriteLine("------------------------------");
-            foreach (var menuItem in menuItems)
+            Console.WriteLine();
+            Console.WriteLine($"{"",MENU_AND_CART_PADDING}==============================");
+            Console.WriteLine($"{"",MENU_AND_CART_PADDING}=={"Menu Items",15} | {"Price",-8}==");
+            Console.WriteLine($"{"",MENU_AND_CART_PADDING}==============================");
+            foreach (KeyValuePair<string, double> menuItem in menuItems)
             {
-                Console.WriteLine($"--{menuItem.Key,15} | ${menuItem.Value,-7}--");
-                Console.WriteLine("------------------------------");
+                Console.WriteLine($"{"",MENU_AND_CART_PADDING}--{menuItem.Key,15} | ${menuItem.Value,-7}--");
+                Console.WriteLine($"{"",MENU_AND_CART_PADDING}------------------------------");
+            }
+            if (menuItems.Count == 0)
+            {
+                Console.WriteLine($"{"",MENU_AND_CART_PADDING}==      Menu is empty       ==");
+                Console.WriteLine($"{"",MENU_AND_CART_PADDING}==============================");
             }
             Console.WriteLine();
         }
