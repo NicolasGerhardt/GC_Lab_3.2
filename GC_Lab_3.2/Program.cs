@@ -17,7 +17,7 @@ namespace GC_Lab_3._2
 
             PrintMenuItems(menuItems);
 
-            FillCart(menuItems, out List<string> itemCart, out List<double> itemPriceCart);
+            FillCart(menuItems, out ArrayList itemCart, out List<double> itemPriceCart);
 
             Console.WriteLine();
             Console.WriteLine("Looks like you are all done shopping.");
@@ -42,11 +42,12 @@ namespace GC_Lab_3._2
             return total / itemPriceCart.Count;
         }
 
-        private static void FillCart(Dictionary<string, double> menuItems, out List<string> itemCart, out List<double> itemPriceCart)
+        private static void FillCart(Dictionary<string, double> menuItems, 
+            out ArrayList itemCart, out List<double> itemPriceCart)
         {
             PrintHelpMenu();
-            itemCart = new ArrayList();
-            itemPriceCart = new ArrayList();
+            itemCart = new List<string>();
+            itemPriceCart = new List<double>();
             var done = false;
             do
             {
@@ -77,13 +78,13 @@ namespace GC_Lab_3._2
                 else
                 {
                     Console.WriteLine("Could not find desired item.");
-                    PrintHelpMenu();
+                    // PrintHelpMenu();
                 }
 
             } while (!done);
         }
 
-        private static void PrintCart(List<string> itemCart, List<double> itemPriceCart)
+        private static void PrintCart(ArrayList itemCart, List<double> itemPriceCart)
         {
             if(itemCart.Count != itemPriceCart.Count)
             {
@@ -107,7 +108,8 @@ namespace GC_Lab_3._2
             Console.WriteLine();
         }
 
-        private static bool TryGetMenuItem(string desiredItem, Dictionary<string, double> menuItems, out string item, out double price)
+        private static bool TryGetMenuItem(string desiredItem, Dictionary<string, double> menuItems, 
+            out string item, out double price)
         {
             item = string.Empty;
             price = 0.0;
@@ -144,7 +146,7 @@ namespace GC_Lab_3._2
             menuItems.Add("elderberry", 1.79);
             menuItems.Add("figs", 2.09);
             menuItems.Add("grapefruit", 1.99);
-            menuItems.Add("honeydew", 3.49);
+            menuItems.Add("honey dew", 3.49);
             return menuItems;
         }
 
